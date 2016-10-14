@@ -1,0 +1,20 @@
+version: "2"
+services:
+  fpm:
+    image: php:7.1-fpm
+    ports:
+      - "3001:9000"
+    volumes:
+      - "./app:/application"
+  nginx:
+    build:
+      context: ./nginx
+    ports:
+      - "3000:80"
+    volumes:
+      - "./app:/application"
+      - "./nginx/nginx.conf:/etc/nginx/nginx.conf"
+  db:
+    build: ./db
+    ports:
+      - "3002:5432"
